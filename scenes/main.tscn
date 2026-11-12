@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://b8jfw00hc1nr2" path="res://shader/main.gdshader" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://b5jxpt71mot40" path="res://scripts/main.gd" id="5_main"]
 [ext_resource type="Script" uid="uid://der33ijeu1cy4" path="res://scripts/fps_counter.gd" id="6_fps"]
+[ext_resource type="PackedScene" uid="uid://c5vdu7jtb82b5" path="res://scenes/wall.tscn" id="8_tipki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -54,9 +55,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.987847, 1.2323484, 6.294456
 [node name="Cylinder3" parent="." unique_id=624552988 instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.987847, 1.2323484, -10.239569)
 
-[node name="cube" parent="." unique_id=510144650 instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.757351, 0, 9.175659)
-
 [node name="cube2" parent="." unique_id=107081675 instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.373487, 0, 9.175659)
 
@@ -96,3 +94,41 @@ offset_right = 160.0
 offset_bottom = 48.0
 text = "FPS: 0"
 script = ExtResource("6_fps")
+
+[node name="walls" type="Node3D" parent="." unique_id=1719223670]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -5.901432, 2.0031815, 16.491468)
+
+[node name="wall" parent="walls" unique_id=1607771717 instance=ExtResource("8_tipki")]
+
+[node name="wall2" parent="walls" unique_id=1102583174 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="wall3" parent="walls" unique_id=100874758 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="wall4" parent="walls" unique_id=730683807 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+
+[node name="wall5" parent="walls" unique_id=1831342114 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+
+[node name="wall6" parent="walls" unique_id=2101869047 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="wall7" parent="walls" unique_id=1290423433 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -18)
+
+[node name="wall8" parent="walls" unique_id=1785757067 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
+
+[node name="wall9" parent="walls" unique_id=290336306 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
+
+[node name="wall10" parent="walls" unique_id=1970976521 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27)
+
+[node name="wall11" parent="walls" unique_id=1187549272 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+
+[node name="wall12" parent="walls" unique_id=1426758177 instance=ExtResource("8_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33)

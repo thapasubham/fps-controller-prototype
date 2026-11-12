@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c5vdu7jtb82b5"]
+
+[ext_resource type="Shader" uid="uid://clxhw2jw8tfo6" path="res://shader/cylinder.gdshader" id="2_iuee5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4f30"]
+render_priority = 0
+shader = ExtResource("2_iuee5")
+
+[sub_resource type="BoxMesh" id="BoxMesh_xxgf6"]
+material = SubResource("ShaderMaterial_y4f30")
+size = Vector3(0.1, 5, 3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wykyb"]
+points = PackedVector3Array(0.05, 2.5, 1.5, -0.05, 2.5, 1.5, 0.05, -2.5, 1.5, 0.05, 2.5, -1.5, -0.05, 2.5, -1.5, -0.05, -2.5, 1.5, 0.05, -2.5, -1.5, -0.05, -2.5, -1.5)
+
+[node name="wall" type="StaticBody3D" unique_id=1607771717]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=99297473]
+mesh = SubResource("BoxMesh_xxgf6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2100952885]
+shape = SubResource("ConvexPolygonShape3D_wykyb")
