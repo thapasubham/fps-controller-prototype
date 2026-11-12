@@ -26,7 +26,7 @@ size = Vector2(50, 50)
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_tbgi4")
-shader_parameter/tint_color = Color(0.1, 0.7, 0.9, 1)
+shader_parameter/tint_color = Color(0.9411765, 0.81960785, 0.56078434, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
 size = Vector3(51.53015, 0.001, 50.53235)

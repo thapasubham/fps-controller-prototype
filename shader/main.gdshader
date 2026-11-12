@@ -3,7 +3,8 @@ shader_type spatial;
 uniform vec3 tint_color : source_color = vec3(0.1, 0.7, 0.9);
 
 void vertex() {
-	VERTEX.y += sin(TIME + VERTEX.x) * 0.1;
+	VERTEX.y += sin(TIME + VERTEX.x+VERTEX.z) * 0.1;
+	
 }
 
 void fragment() {
