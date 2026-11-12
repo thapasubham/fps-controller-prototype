@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://vwn7uj8hqs0k"]
 
 [ext_resource type="Script" uid="uid://cwiq3xdn8gg4j" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cakxneftkx8b6" path="res://icon.svg" id="2_g2els"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ukdh2"]
+albedo_texture = ExtResource("2_g2els")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_64ytp"]
+material = SubResource("StandardMaterial3D_ukdh2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_64ytp"]
 
@@ -16,7 +21,25 @@ mesh = SubResource("CapsuleMesh_64ytp")
 shape = SubResource("CapsuleShape3D_64ytp")
 
 [node name="head" type="Node3D" parent="." unique_id=705437182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.037347794, 0.7370553, -0.16556394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.037347794, 0.78916144, 1.1158324)
 
 [node name="Camera3D" type="Camera3D" parent="head" unique_id=8564684]
+transform = Transform3D(1, 0, 0, 0, 0.96436876, 0.26456174, 0, -0.26456174, 0.96436876, 0, 0.13706613, 0.8201264)
 current = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=624071735]
+
+[node name="WallRunBar" type="ProgressBar" parent="UI" unique_id=484788177]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 40.0
+offset_right = 80.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false

@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export_range(1.0, 25.0, 0.1, "suffix:m/s²") var ground_acceleration: float = 12.0
 @export_range(1.0, 5.0, 0.1, "suffix:m/s²") var air_acceleration: float = 2.0
 @export_range(2, 10, 0.5, "suffix:m/s") var forward_push: float = 2.5
-@export_range(1.0, 3.0, 0.1) var wall_forward_boost: float = 1.5
+@export_range(1.0, 3.0, 0.1) var wall_forward_boost: float = 0.5
 @export var wall_gravity_scale: float = 0.2
 
 @export_range(0.001, 0.01, 0.0001) var mouse_sensitivity: float = 0.003
@@ -14,7 +14,9 @@ extends CharacterBody3D
 @export_subgroup("Jump")
 @export_range(0.5, 4.0, 0.1, "suffix:m") var jump_height: float = 1.5
 @export_range(5.0, 20.0, 0.5, "suffix:m/s") var wall_kick_force: float = 8.0
-@export_range(1, 3,1) var max_air_Jump: int = 2
+@export_range(0.2, 1.0, 0.05) var auto_wall_kick_scale: float = 0.4
+
+@export_range(1, 3,1) var max_jump_count: int = 2
 @export_range(3.0, 5.0, 0.1, "suffix:s") var wall_run_time: float = 2.0
 
 var current_jump =0
@@ -23,7 +25,8 @@ var current_wall_run_time: float = 0.0
 @export_group("Camera")
 @export var base_fov: float = 75.0
 @export var fov_zoom_multiplier: float = 1.5
-@onready var cameraObt: Camera3D = $head/Camera3D 
+@onready var cameraObt: Camera3D = $head/Camera3D
+@onready var wall_run_bar: ProgressBar = $UI/WallRunBar
 
 var on_wall = false
 var on_air= false
@@ -45,18 +48,27 @@ func _physics_process(delta: float) -> void:
 	
 	on_air = not is_on_floor()
 	on_wall = is_on_wall() and on_air
-	
+
 	if on_air:
-		if on_wall and velocity.y<0 and current_wall_run_time<=wall_run_time:
-			current_wall_run_time+=delta
-			velocity.y -= wall_gravity_scale* delta
-			
+		if on_wall and velocity.y<0:
+			if current_wall_run_time<=wall_run_time:
+				current_wall_run_time+=delta
+				velocity.y -=  wall_gravity_scale * delta
+			else:
+				_apply_wall_kick(wall_kick_force)
+				velocity.y = sqrt(2.0 * gravity * jump_height) * auto_wall_kick_scale
+				current_wall_run_time = 0.0
+				current_jump = 0
 		else:
 			velocity.y -= gravity* delta
-	else: 
+	else:
 		on_air = false
 		current_wall_run_time = 0.0
 		current_jump = 0
+
+	wall_run_bar.visible = on_wall and velocity.y < 0
+	wall_run_bar.value = (1.0 - (current_wall_run_time / wall_run_time)) * 100.0
+
 	var input := Input.get_vector("left", "right", "forward", "backward")
 	var direction := transform.basis * Vector3(input.x, 0, input.y)
 	var target_velocity = direction * walk_speed
@@ -75,7 +87,7 @@ func _physics_process(delta: float) -> void:
 		var wall_normal = get_wall_normal()
 		var right_dir = transform.basis.x
 		var side = sign(wall_normal.dot(right_dir))
-		target_roll = deg_to_rad(-10.0 * side) 
+		target_roll = deg_to_rad(-10.0 * side)
 		
 	cameraObt.rotation.z = lerp(cameraObt.rotation.z, target_roll, delta * 5.0)
 	
@@ -84,7 +96,7 @@ func _physics_process(delta: float) -> void:
 func jump():
 	if on_wall and not is_on_floor():
 		wall_jump()
-	elif is_on_floor() or current_jump < max_air_Jump:
+	elif is_on_floor() or current_jump < max_jump_count:
 		air_jump()
 
 func air_jump():
@@ -97,14 +109,14 @@ func air_jump():
 	current_jump += 1
 
 func wall_jump():
-	var wall_normal = get_wall_normal()
 	velocity.y = sqrt(2.0 * gravity * jump_height)
-	
-	var forward_dir = -transform.basis.z
-	var kick_vector = (wall_normal * wall_kick_force) + (forward_dir * wall_forward_boost * walk_speed)
-	
-	velocity.x = kick_vector.x
-	velocity.z = kick_vector.z
-	
+	_apply_wall_kick(wall_kick_force)
 	current_wall_run_time = 0.0
 	current_jump = 0
+
+func _apply_wall_kick(force: float) -> void:
+	var wall_normal = get_wall_normal()
+	var forward_dir = -transform.basis.z
+	var kick_vector = (wall_normal * force) + (forward_dir * wall_forward_boost * walk_speed)
+	velocity.x = kick_vector.x
+	velocity.z = kick_vector.z
