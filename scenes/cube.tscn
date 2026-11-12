@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b4vl2mj17m2j3"]
+
+[ext_resource type="PackedScene" uid="uid://xp1j1piu42ov" path="res://scenes/cylinder.tscn" id="1_jbd7x"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ftslj"]
+size = Vector3(1, 2, 0.001)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n65sj"]
+size = Vector3(1, 2, 0.001)
+
+[node name="cube" unique_id=1528317105 instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=1959390260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.00049999356)
+mesh = SubResource("BoxMesh_ftslj")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=1285122727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.00049999356)
+shape = SubResource("BoxShape3D_n65sj")

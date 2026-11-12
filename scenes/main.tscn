@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://b47ebwd6aslaj"]
+
+[ext_resource type="PackedScene" uid="uid://vwn7uj8hqs0k" path="res://scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://xp1j1piu42ov" path="res://scenes/cylinder.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b4vl2mj17m2j3" path="res://scenes/cube.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cn1igwmw1ccdj" path="res://scenes/rigid_body.tscn" id="4_1bvp3"]
+[ext_resource type="Shader" uid="uid://b8jfw00hc1nr2" path="res://shader/main.gdshader" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://b5jxpt71mot40" path="res://scripts/main.gd" id="5_main"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0xm2m"]
+sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 2
+sky = SubResource("Sky_0xm2m")
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e48qj"]
+size = Vector2(50, 50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bvp3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_tbgi4")
+shader_parameter/tint_color = Color(0.1, 0.7, 0.9, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+size = Vector3(51.53015, 0.001, 50.53235)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1bvp3"]
+friction = 0.5
+
+[node name="Node3D" type="Node3D" unique_id=1035475877]
+script = ExtResource("5_main")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=423757954]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1919009651]
+environment = SubResource("Environment_h2yge")
+
+[node name="Cylinder" parent="." unique_id=1528317105 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.325553, 1.2323484, 6.2944565)
+
+[node name="Cylinder2" parent="." unique_id=761138953 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.987847, 1.2323484, 6.2944565)
+
+[node name="Cylinder3" parent="." unique_id=624552988 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.987847, 1.2323484, -10.239569)
+
+[node name="cube" parent="." unique_id=510144650 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.757351, 0, 9.175659)
+
+[node name="cube2" parent="." unique_id=107081675 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.373487, 0, 9.175659)
+
+[node name="cube3" parent="." unique_id=1862038646 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.373487, 0, -13.199276)
+
+[node name="cube4" parent="." unique_id=744757693 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.373487, 0, -0.96779156)
+
+[node name="cube5" parent="." unique_id=725125318 instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.373487, 0, -14.144775)
+
+[node name="player" parent="." unique_id=959476893 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.471371, 4.08111, 2.7536588)
+
+[node name="Area3D" type="StaticBody3D" parent="." unique_id=1077851556]
+disable_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=1658712383]
+mesh = SubResource("PlaneMesh_e48qj")
+surface_material_override/0 = SubResource("ShaderMaterial_1bvp3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1511642952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025978088, 0.0026820004, 0.10748291)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="Node3D" parent="." unique_id=510293048 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(0.9999859, -0.0011396256, -0.0051887217, 0.0011317624, 0.9999982, -0.001518089, 0.005190443, 0.0015121951, 0.9999854, -8.536838, 6.854858, 1.9532106)
+physics_material_override = SubResource("PhysicsMaterial_1bvp3")
